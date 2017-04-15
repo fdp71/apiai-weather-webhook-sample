@@ -38,7 +38,7 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    baseurl = "https://query.yahooapis.com/v1/public/yql?u=c&"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
         return {}
@@ -74,8 +74,7 @@ def makeWebhookResult(data):
 
     item = channel.get('item')
     location = channel.get('location')
-    units.temperature = 'c'
-    units.distance = 'km'
+    units = channel.get('units')    
     if (location is None) or (item is None) or (units is None):
         return {}
 
